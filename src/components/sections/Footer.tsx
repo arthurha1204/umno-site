@@ -34,8 +34,21 @@ export function Footer() {
           <p className="font-hand text-xl text-sun">Fale com a gente</p>
           <ul className="mt-3 space-y-2 text-sm text-white/80">
             <li><Link href="/agendar" className="link-underline">Agendar conversa</Link></li>
-            <li>contato@umno.com.br</li>
-            <li>(11) 90000-0000</li>
+            <li>
+              <a href="mailto:arthurlimatech@gmail.com" className="link-underline">
+                arthurlimatech@gmail.com
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://wa.me/5581993165396"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline"
+              >
+                (81) 99316-5396
+              </a>
+            </li>
           </ul>
         </div>
       </div>
