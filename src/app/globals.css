@@ -1,26 +1,244 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-paper: #fffcf5;
+  --color-paper-alt: #fef3e7;
+  --color-ink: #14213d;
+
+  --color-blue-50: #eef4ff;
+  --color-blue-100: #dbe6ff;
+  --color-blue-200: #b8ceff;
+  --color-blue-300: #85acff;
+  --color-blue-400: #4d81ff;
+  --color-blue-500: #2258ff;
+  --color-blue-600: #1741ec;
+  --color-blue-700: #1332bd;
+  --color-blue-800: #142c92;
+  --color-blue-900: #142a72;
+  --color-blue-950: #0d1a4a;
+
+  --color-pink-50: #fff0f7;
+  --color-pink-100: #ffdcec;
+  --color-pink-200: #ffb8da;
+  --color-pink-300: #ff85bd;
+  --color-pink-400: #ff4fa0;
+  --color-pink-500: #f92385;
+  --color-pink-600: #e0116b;
+  --color-pink-700: #b80d57;
+  --color-pink-800: #900d46;
+  --color-pink-900: #710e3b;
+
+  --color-sun: #ffc93c;
+  --color-mint: #22e3a3;
+  --color-violet: #8b6df2;
+  --color-coral: #ff7a59;
+
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-paper: var(--color-paper);
+  --color-paper-alt: var(--color-paper-alt);
+  --color-ink: var(--color-ink);
+
+  --color-blue-50: var(--color-blue-50);
+  --color-blue-100: var(--color-blue-100);
+  --color-blue-200: var(--color-blue-200);
+  --color-blue-300: var(--color-blue-300);
+  --color-blue-400: var(--color-blue-400);
+  --color-blue-500: var(--color-blue-500);
+  --color-blue-600: var(--color-blue-600);
+  --color-blue-700: var(--color-blue-700);
+  --color-blue-800: var(--color-blue-800);
+  --color-blue-900: var(--color-blue-900);
+  --color-blue-950: var(--color-blue-950);
+
+  --color-pink-50: var(--color-pink-50);
+  --color-pink-100: var(--color-pink-100);
+  --color-pink-200: var(--color-pink-200);
+  --color-pink-300: var(--color-pink-300);
+  --color-pink-400: var(--color-pink-400);
+  --color-pink-500: var(--color-pink-500);
+  --color-pink-600: var(--color-pink-600);
+  --color-pink-700: var(--color-pink-700);
+  --color-pink-800: var(--color-pink-800);
+  --color-pink-900: var(--color-pink-900);
+
+  --color-sun: var(--color-sun);
+  --color-mint: var(--color-mint);
+  --color-violet: var(--color-violet);
+  --color-coral: var(--color-coral);
+
+  --font-display: var(--font-anton);
+  --font-hand: var(--font-caveat);
+  --font-sans: var(--font-jakarta);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Scrapbook paper texture: soft dot grid, never a tech/dark grid */
+.bg-paper-texture {
+  background-image:
+    radial-gradient(var(--color-blue-200) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -8px -8px;
+}
+
+/* Torn paper edge, used as a top/bottom border on section dividers */
+.torn-edge-bottom {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 92%,
+    97% 100%, 93% 90%, 89% 100%, 85% 91%, 81% 100%,
+    77% 92%, 73% 100%, 69% 90%, 65% 100%, 61% 93%,
+    57% 100%, 53% 91%, 49% 100%, 45% 92%, 41% 100%,
+    37% 90%, 33% 100%, 29% 92%, 25% 100%, 21% 91%,
+    17% 100%, 13% 92%, 9% 100%, 5% 91%, 1% 100%, 0% 94%
+  );
+}
+
+.shadow-scrap {
+  box-shadow: 6px 8px 0px 0px rgba(20, 33, 61, 0.12);
+}
+
+.shadow-scrap-pink {
+  box-shadow: 6px 8px 0px 0px rgba(224, 17, 107, 0.18);
+}
+
+/* Uiverse.io by biswacpcode — double-line hover sweep for plain text links */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::before,
+.link-underline::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.35s ease;
+}
+
+.link-underline::before {
+  margin-left: auto;
+}
+
+.link-underline:hover::before,
+.link-underline:hover::after {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  border: 2px solid rgba(20, 33, 61, 0.2);
+  background: white;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-blue-500);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hover-wiggle:hover {
+    transform: rotate(-2deg) scale(1.02);
+  }
+}
+
+/* Hero load-in: staggered fade + rise on elements with no inline transform of their own */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-rise-in {
+    animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* Gentle ambient bob for a few background stickers — wrap the sticker, never
+   animate its own element (it already carries an inline rotate transform). */
+@keyframes float-idle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float {
+    animation: float-idle 4.5s ease-in-out infinite;
+  }
+}
+
+/* Quick pop feedback when an item is added to the cart */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-pop {
+    animation: pop 0.35s ease-out;
+  }
+}
+
+/* Smooth accordion expand/collapse using the grid-rows trick — animates to
+   an intrinsic height without needing JS to measure content. */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.accordion-panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.accordion-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise-in,
+  .animate-float,
+  .animate-pop,
+  .reveal-anim {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .accordion-panel {
+    transition: none !important;
+  }
 }
