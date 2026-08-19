@@ -227,11 +227,210 @@ body {
   min-height: 0;
 }
 
+/* ---------- Hero carousel ---------- */
+
+/* Slide crossfade on remount (key-change swap, no track/width math needed) */
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-slide-fade-in {
+    animation: slide-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+/* Rotating headline word, remounted on each change via React key */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-word-in {
+    animation: word-in 0.4s ease-out both;
+  }
+}
+
+/* Chat demo: "digitando..." dot bounce, reused across all three dots via delay */
+@keyframes typing-dot-bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-typing-dot {
+    animation: typing-dot-bounce 1.1s ease-in-out infinite;
+  }
+}
+
+/* Chat demo: two "digitando..." visibility windows within the 8s cycle */
+@keyframes typing-window-1 {
+  0%, 12%, 28%, 100% { opacity: 0; }
+  16%, 24% { opacity: 1; }
+}
+
+@keyframes typing-window-2 {
+  0%, 48%, 66%, 100% { opacity: 0; }
+  52%, 62% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-typing-window-1 {
+    animation: typing-window-1 8s ease-in-out infinite;
+  }
+  .animate-typing-window-2 {
+    animation: typing-window-2 8s ease-in-out infinite;
+  }
+}
+
+/* Chat demo: four message bubbles, each with its own appear/hold/reset window
+   inside the same 8s cycle so the "conversation" replays in a loop. */
+@keyframes chat-bubble-1 {
+  0%, 6% { opacity: 0; transform: translateY(6px); }
+  12% { opacity: 1; transform: translateY(0); }
+  94% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; }
+}
+@keyframes chat-bubble-2 {
+  0%, 26% { opacity: 0; transform: translateY(6px); }
+  32% { opacity: 1; transform: translateY(0); }
+  94% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; }
+}
+@keyframes chat-bubble-3 {
+  0%, 40% { opacity: 0; transform: translateY(6px); }
+  46% { opacity: 1; transform: translateY(0); }
+  94% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; }
+}
+@keyframes chat-bubble-4 {
+  0%, 64% { opacity: 0; transform: translateY(6px); }
+  70% { opacity: 1; transform: translateY(0); }
+  94% { opacity: 1; transform: translateY(0); }
+  98%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-chat-bubble-1 { animation: chat-bubble-1 8s ease-in-out infinite; }
+  .animate-chat-bubble-2 { animation: chat-bubble-2 8s ease-in-out infinite; }
+  .animate-chat-bubble-3 { animation: chat-bubble-3 8s ease-in-out infinite; }
+  .animate-chat-bubble-4 { animation: chat-bubble-4 8s ease-in-out infinite; }
+}
+
+/* Site demo: skeleton rows "typing themselves in" — one reusable keyframe,
+   staggered via animation-delay so rows cascade then reset together. */
+@keyframes row-grow {
+  0% { width: 0%; }
+  18% { width: 100%; }
+  85% { width: 100%; }
+  100% { width: 0%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-row-grow {
+    animation: row-grow 5s ease-in-out infinite;
+  }
+}
+
+/* Site demo: ambient rising visitor bars — one keyframe, staggered delays */
+@keyframes bar-grow {
+  0%, 100% { height: 32%; }
+  50% { height: 82%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-bar-grow {
+    animation: bar-grow 2.4s ease-in-out infinite;
+  }
+}
+
+/* Automation demo: a pulse of "data" traveling along a connector line —
+   one keyframe reused per segment via animation-delay for a relay effect. */
+@keyframes dot-travel {
+  0% { left: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-dot-travel {
+    animation: dot-travel 2.6s linear infinite;
+  }
+}
+
+/* Automation demo: subtle block pulse when the data pulse arrives */
+@keyframes block-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-block-pulse {
+    animation: block-pulse 2.6s ease-in-out infinite;
+  }
+}
+
+/* CRM demo: one lead card moving across four kanban columns, recoloring
+   to the "closed" accent once it reaches the last column. */
+@keyframes kanban-move {
+  0% { transform: translateX(0%); opacity: 0; }
+  6% { opacity: 1; }
+  24% { transform: translateX(0%); opacity: 1; }
+  30% { transform: translateX(100%); }
+  48% { transform: translateX(100%); }
+  54% { transform: translateX(200%); }
+  72% { transform: translateX(200%); }
+  80% { transform: translateX(300%); border-color: var(--color-mint); }
+  95% { transform: translateX(300%); opacity: 1; border-color: var(--color-mint); }
+  100% { transform: translateX(300%); opacity: 0; border-color: var(--color-mint); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-kanban-move {
+    animation: kanban-move 8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-rise-in,
   .animate-float,
   .animate-pop,
-  .reveal-anim {
+  .reveal-anim,
+  .animate-slide-fade-in,
+  .animate-word-in,
+  .animate-typing-dot,
+  .animate-typing-window-1,
+  .animate-typing-window-2,
+  .animate-chat-bubble-1,
+  .animate-chat-bubble-2,
+  .animate-chat-bubble-3,
+  .animate-chat-bubble-4,
+  .animate-row-grow,
+  .animate-bar-grow,
+  .animate-dot-travel,
+  .animate-block-pulse,
+  .animate-kanban-move {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
